@@ -1,6 +1,10 @@
 import { connect } from 'react-redux'
 import Dish from './Dish'
-import { removeFromDish, updateGFromDish } from '../actions'
+import { 
+  removeFromDish, 
+  updateGFromDish,
+  clearDish,
+  pushDishToDiary } from '../actions'
 
 const mapStateToProps = state => {
     return {
@@ -10,8 +14,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return Object.assign({}, ownProps, {
-      removeFromDish: (item) => dispatch(removeFromDish(item)),
-      updateGFromDish: (item) => dispatch(updateGFromDish(item))
+      removeFromDish: item => dispatch(removeFromDish(item)),
+      updateGFromDish: item => dispatch(updateGFromDish(item)),
+      pushDishToDiary: dish => dispatch(pushDishToDiary(dish)),
+      clearDish: () => dispatch(clearDish()),
     })
 }
   

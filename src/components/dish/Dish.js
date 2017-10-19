@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { isArray } from 'lodash'
+import moment from 'moment'
 import DishItem from './DishItem'
 
 export default class Dish extends React.Component {
@@ -23,6 +24,14 @@ export default class Dish extends React.Component {
         }
         return
     }
+    create() {
+        const { list } = this.props
+        this.props.pushDishToDiary({
+            at: moment(),
+            foods: [...list]
+        });
+        this.props.clearDish();
+    }
     render() {
         let { list } = this.props
         if(!list) return null;
@@ -35,6 +44,10 @@ export default class Dish extends React.Component {
                 onChangeG={this.updateGFromDish.bind(this)}
                 onRemove={this.removeFromDish.bind(this)}/>
             })}
+            <button 
+                disabled={!list || list.length == 0}
+                className='btn' 
+                onClick={this.create.bind(this)}>OK</button>
         </div>
     }
 
@@ -44,4 +57,6 @@ Dish.propTypes = {
     list: PropTypes.array,
     removeFromDish: PropTypes.func,
     updateGFromDish: PropTypes.func,
+    clearDish: PropTypes.func.isRequired,
+    pushDishToDiary: PropTypes.func.isRequired,
 }

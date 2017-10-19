@@ -20,3 +20,14 @@ export const updateGFromDish = food => {
         food,
     }
 }
+export const clearDish = () => {
+    return {
+        type: 'CLEAR_DISH',
+    }
+}
+export const pushDishToDiary = (dish) => {
+    return {
+        type: 'PUSH_DISH_TO_DIARY',
+        dish,
+    }
+}

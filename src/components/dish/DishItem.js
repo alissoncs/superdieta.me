@@ -1,36 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { isArray, isFunction } from 'lodash'
+import { isArray, isFunction, isNumber } from 'lodash'
 
 export default class DishItem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            enableEditG: false,
+            enableEditG: true,
         }
     }
     
     renderEditGForm() {
         const { item } = this.props
         console.log(item)
-        // if(this.state.enableEditG) {
-            return <input type='tel' value={item.g} onChange={this.onChangeG.bind(this)} />
-        //}
+        if(this.state.enableEditG) {
+            return <div>
+                <input type='tel' value={item.g} onChange={this.onChangeG.bind(this)} />
+            </div>
+        }
         return null;
     }
     onChangeG(event) {
-        const newG = event.target.value;
-        this.props.item.g = newG
-        this.props.onChangeG(this.props.item)
+        const newG = event.target.value
+        const { item } = this.props
+        if(parseInt(newG)) {
+            item.g = parseInt(newG)
+        } else {
+            item.g = ''
+        }
+        
+        this.props.onChangeG(item)
     }
     enableEditG() {
         this.setState({
             enableEditG: true,
         })
     }
-    onRemove() {
+    onRemove(item) {
         if(this.props.onRemove) {
-            this.props.onRemove();
+            this.props.onRemove(item);
         }
     }
     componentWillMount() {
@@ -43,7 +51,7 @@ export default class DishItem extends React.Component {
             <span onClick={this.enableEditG.bind(this)}>{`${item.g || 100}`}</span>
             {this.renderEditGForm()}
             <button disabled={!isFunction(this.props.onRemove)} onClick={() => {
-                this.onRemove(item)    
+                this.onRemove(item)
             }}>&times;</button>
         </div>;
     }

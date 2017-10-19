@@ -9,7 +9,7 @@ const dish = (state = [], action) => {
             return [...state, {
                 id: f.id,
                 name: f.name,
-                g: f.g,
+                g: f.g || 100,
                 kcal: f.kcal,
             }]
         }
@@ -31,6 +31,8 @@ const dish = (state = [], action) => {
             existent.g = action.food.g
         }
         return [...state]
+    } else if(action.type === 'CLEAR_DISH') {
+        return []
     }
     return state;
 }
