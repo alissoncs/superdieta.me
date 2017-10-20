@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
+import './foodlist.scss';
 const dbfood = [
     {
         name: 'batata doce',
@@ -52,13 +52,13 @@ export default class FoodList extends React.Component {
                 {`${kcal}kcal / ${(g || 100)}g`}
             </div>
             <button className='btn' onClick={this.onAddItem.bind(this, id)}>
-                add
+                +
             </button>
         </div>;
     }
     render() {
         return <div className='foodlist'>
-            Teste
+            <h2 className='title'>Lista de alimentos</h2>
             {dbfood.map(item => {
                 return this.renderItem(item)
             })}

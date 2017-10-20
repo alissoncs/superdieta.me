@@ -1,18 +1,41 @@
 import React from 'react'
-import Avatar from 'material-ui/Avatar';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
+import DiaryDishContainer from './DiaryDishContainer';
+import './diary.scss';
 
 export default class DiaryList extends React.Component {
 
+    constructor(props) {
+        super(props)
+        this.state = {}
+        this.classComponent = [ 'diary-card' ]
+    }
+
     card(ref) {
-        return null;
+        return <div className={this.classComponent.join(' ')}>
+            <div className='at'>
+                <span>{ref.at.format('H:mm')}</span>
+            </div>
+            <div className='diary-dish-block'>
+                <DiaryDishContainer 
+                    list={ref.foods}    
+                    fadeBlock={true}/>
+            </div>
+        </div>;
+    }
+
+    emptyMessage() {
+        return <div className='empty-message'><p>Nenhum item adicionado ao diário</p></div>;
     }
 
     render() {
-        return <div className='foodlist'>
-            {this.card({})}
+        let { diary } = this.props;
+        if(!diary) diary = [];
+        
+        return <div className='diary'>
+            {diary.map((ref, index) => {
+                return <div key={index} className='diary-item'>{this.card(ref)}</div>;
+            })}
+            {diary.length == 0 && this.emptyMessage()}
         </div>
     }
 

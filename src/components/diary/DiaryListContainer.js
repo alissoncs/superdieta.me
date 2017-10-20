@@ -3,6 +3,7 @@ import DiaryList from './DiaryList'
 
 const mapStateToProps = state => {
     return {
+      diary: state.diary,
     }
 }
 

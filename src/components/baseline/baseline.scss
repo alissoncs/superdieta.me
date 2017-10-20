@@ -1,0 +1,21 @@
+.baseline {
+    &:after {
+        content:"";
+        clear: both;
+        float: none;
+        display: block;
+        height: auto;
+    }
+    .block-1 {
+        float: left;
+        width: 25%;
+        border-right: 1px solid #DDD;
+    }
+    .block-2 {
+        float: right;
+        width: 75%;
+    }
+}
+.dish-creation-component {
+    border-bottom: 1px solid #DDD;
+}

@@ -1,6 +1,7 @@
-const foodlist = (state = [], action) {
+const foodlist = (state = [], action) => {
     if(action.type) {
         
     }
+    return state
 }
 export default foodlist

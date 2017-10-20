@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <Router className="diet-global">
-        <div className="container-fluid">
+        <div className="">
           <Provider store={store}>
             <Switch>
               <Route path='/' component={BaseLineContainer} />

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import { isArray } from 'lodash'
 import moment from 'moment'
 import DishItem from './DishItem'
+import './dish.scss'
+
+import { totalDishCalories } from '../../services/kcalculator'
 
 export default class Dish extends React.Component {
     constructor(props) {
@@ -10,6 +13,7 @@ export default class Dish extends React.Component {
         this.state = {
             enableEditG: false,
         }
+        this.classComponent = [ 'dish-block' ] 
     }
     removeFromDish(item) {
         if(item && this.props.removeFromDish)
@@ -25,29 +29,52 @@ export default class Dish extends React.Component {
         return
     }
     create() {
+        if(!this.props.pushDishToDiary) {
+            return false;
+        }
         const { list } = this.props
         this.props.pushDishToDiary({
             at: moment(),
             foods: [...list]
         });
-        this.props.clearDish();
+        if (this.props.clearDish) this.props.clearDish();
+    }
+    componentDidMount() {
+        setTimeout(() => {
+            this.classComponent.push('show')
+            this.forceUpdate()
+        }, 0)
     }
     render() {
-        let { list } = this.props
+        let { list, fadeBlock, pushDishToDiary } = this.props
         if(!list) return null;
+        const totalKcal = totalDishCalories(list);
+        if(fadeBlock) {
+            this.classComponent.push('show')
+        }
 
-        return <div className='mount-dish card'>
-            {list.map((food, index) => {
-                return <DishItem 
-                key={food.id} 
-                item={food} 
-                onChangeG={this.updateGFromDish.bind(this)}
-                onRemove={this.removeFromDish.bind(this)}/>
-            })}
-            <button 
-                disabled={!list || list.length == 0}
-                className='btn' 
-                onClick={this.create.bind(this)}>OK</button>
+        return <div className={this.classComponent.join(' ')}>
+            <div className='dish-list-items'>
+                {list.map((food, index) => {
+                    return <DishItem 
+                    key={food.id} 
+                    item={food} 
+                    onChangeG={this.updateGFromDish.bind(this)}
+                    onRemove={this.removeFromDish.bind(this)}/>
+                })}
+            </div>
+            <div className='dish-right-group'>
+                <div className='totals'>
+                    <span className='legend'>Total de kcal</span>
+                    <big className='kcal-total'>{totalKcal}</big>
+                    <small className='medd'>kcal</small>
+                </div>
+                {pushDishToDiary && <button 
+                    disabled={!list || list.length == 0}
+                    className='btn btn-ok' 
+                    onClick={this.create.bind(this)}>OK</button>
+                }
+            </div>
         </div>
     }
 
@@ -55,8 +82,9 @@ export default class Dish extends React.Component {
 
 Dish.propTypes = {
     list: PropTypes.array,
+    fadeBlock: PropTypes.bool,
     removeFromDish: PropTypes.func,
     updateGFromDish: PropTypes.func,
     clearDish: PropTypes.func.isRequired,
-    pushDishToDiary: PropTypes.func.isRequired,
+    pushDishToDiary: PropTypes.func,
 }
