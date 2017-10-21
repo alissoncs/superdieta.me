@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    min-height: 92px;
+    min-height: 105px;
     opacity: 0;
     &.show {
         transition: 0.5s all ease-in;
@@ -14,34 +14,8 @@
         flex-wrap: wrap;
         align-items: stretch;
     }
-    .totals {
-        background: #ffc639;
-        min-width: 150px;
-        border: 1px solid darken(#ffc639, 10);
-        border-right: 0;
-        color: #fff;
-        align-self: stretch;
-        margin-left: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 0 20px;
-        line-height: 1;
-        text-shadow: 1px 1px 1px rgba(0,0,0,.08);
-        .legend {
-            font-size: 11px;
-        }
-        .kcal-total {
-            font-size: 35px;
-            display: block;
-            font-weight: bold;
-            line-height: 1;
-            small {
-                font-size: 11px;
-                display: block;
-            }
-        }
+    .card-total-kcal {
+        border-left: 1px solid darken(#eee, 10);
     }
     .dish-right-group {
         display: flex;
@@ -150,16 +124,28 @@
         font-family: inherit;
         font-size: 25px;
         padding: 0 20px;
+        transition: .2s all ease;
+        &:disabled {
+            opacity: .5;
+            cursor: default;
+            &:hover {
+                transition: .2s all ease;
+                background: #2ecc71;
+            }
+        }
         &:hover {
+            transition: .2s all ease;
             background: #27ae60;
             color: #FFF;
         }
         &:focus {
+            transition: .2s all ease;
             background: #27ae60;
             color: #FFF;
             outline: 0 none;
         }
         &.active {
+            transition: .2s all ease;
             box-shadow: inset -2px 0 10px rgba(0,0,0,.5);
         }
     }

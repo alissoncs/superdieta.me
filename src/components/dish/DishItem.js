@@ -18,7 +18,7 @@ export default class DishItem extends React.Component {
         } else {
             item.g = 50;
         }     
-        this.props.onChangeG(item);
+        this.props.onChange(item);
     }
     onDecrement() {
         const item = Object.assign({}, this.props.item);
@@ -28,36 +28,44 @@ export default class DishItem extends React.Component {
             item.g = 50;
         }     
         if(item.g > 0) {
-            this.props.onChangeG(item);
+            this.props.onChange(item);
         }
     }
     renderEditGForm() {
+        const { item, onChange } = this.props
+        if(!onChange) return <div className='g-control-fixed'>
+            {`${item.g}g`}
+        </div> // pode editar
+
+        return <div className='g-control'>
+            <button 
+                type='button'
+                className='btn btn-dec' 
+                title='-50g' 
+                tabIndex='-1'
+                onClick={this.onDecrement.bind(this)} >-</button>
+            <input type='tel'
+            value={item.g || ''} 
+            tabIndex={0}
+            onFocus={(event) => {
+                event.target.select();
+            }}
+            onChange={this.onChangeG.bind(this)} />
+            <button 
+                tabIndex='-1'
+                type='button'
+                className='btn btn-inc'
+                title='+50g'
+                onClick={this.onIncrement.bind(this)}>+</button>
+        </div>
+    }
+    renderRemoveButton() {
+        if(!this.props.onRemove) return null
         const { item } = this.props
-        console.log(item)
-        if(this.state.enableEditG) {
-            return <div className='g-control'>
-                <button 
-                    type='button'
-                    className='btn btn-dec' 
-                    title='-50g' 
-                    tabIndex='-1'
-                    onClick={this.onDecrement.bind(this)} >-</button>
-                <input type='tel'
-                value={item.g || ''} 
-                tabIndex={0}
-                onFocus={(event) => {
-                    event.target.select();
-                }}
-                onChange={this.onChangeG.bind(this)} />
-                <button 
-                    tabIndex='-1'
-                    type='button'
-                    className='btn btn-inc'
-                    title='+50g'
-                    onClick={this.onIncrement.bind(this)}>+</button>
-            </div>
-        }
-        return null;
+        
+        return <button className='btn-remove' disabled={!isFunction(this.props.onRemove)} onClick={() => {
+            this.onRemove(item)
+        }}>&times;</button>
     }
     onChangeG(event) {
         let newG = event.target.value
@@ -69,7 +77,7 @@ export default class DishItem extends React.Component {
             item.g = null
         }
         
-        this.props.onChangeG(item)
+        this.props.onChange(item)
     }
     enableEditG() {
         this.setState({
@@ -96,9 +104,7 @@ export default class DishItem extends React.Component {
             <strong className='item-name'>{`${item.name}`}</strong>
             <span className='item-kcal'>{`${foodCalories(item)}kcal`}</span>
             {this.renderEditGForm()}
-            <button className='btn-remove' disabled={!isFunction(this.props.onRemove)} onClick={() => {
-                this.onRemove(item)
-            }}>&times;</button>
+            {this.renderRemoveButton()}
         </div>;
     }
 
@@ -107,5 +113,5 @@ export default class DishItem extends React.Component {
 DishItem.propTypes = {
     item: PropTypes.object.isRequired,
     onRemove: PropTypes.func,
-    onChangeG: PropTypes.func,
+    onChange: PropTypes.func,
 }

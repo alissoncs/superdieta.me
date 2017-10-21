@@ -17,7 +17,7 @@ const dish = (state = [], action) => {
     } else if(action.type === 'REMOVE_FROM_DISH') {
         let id = action.id || action.food.id
         return [...state.filter(item => item.id !== id)]        
-    } else if(action.type === 'UPDATE_G_FROM_DISH') {        
+    } else if(action.type === 'UPDATE_FROM_DISH') {        
         let existent = state.find(food => food.id === action.food.id)
         if(existent) {
             existent.g = action.food.g

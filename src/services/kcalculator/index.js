@@ -11,7 +11,8 @@ export const totalDishCalories = (dish) => {
         total += (food.g * food.kcal) / 100;
     });
 
-    return total.toFixed(0);
+    // return total.toFixed(0);
+    return Math.round(total);
 
 };
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { isArray } from 'lodash'
 import moment from 'moment'
 import DishItem from './DishItem'
+import CardTotalKcal from './CardTotalKcal'
 import './dish.scss'
 
 import { totalDishCalories } from '../../services/kcalculator'
@@ -19,8 +20,8 @@ export default class Dish extends React.Component {
         if(item && this.props.removeFromDish)
             this.props.removeFromDish(item);
     }
-    updateGFromDish(item) {
-        this.props.updateGFromDish(item)
+    updateFromDish(item) {
+        
     }
     renderEditGForm() {
         if(this.state.enableEditG) {
@@ -59,16 +60,12 @@ export default class Dish extends React.Component {
                     return <DishItem 
                     key={food.id} 
                     item={food} 
-                    onChangeG={this.updateGFromDish.bind(this)}
-                    onRemove={this.removeFromDish.bind(this)}/>
+                    onChange={this.props.updateFromDish}
+                    onRemove={this.props.removeFromDish && this.removeFromDish.bind(this)}/>
                 })}
             </div>
             <div className='dish-right-group'>
-                <div className='totals'>
-                    <span className='legend'>Total de kcal</span>
-                    <big className='kcal-total'>{totalKcal}</big>
-                    <small className='medd'>kcal</small>
-                </div>
+                <CardTotalKcal kcal={totalKcal} />
                 {pushDishToDiary && <button 
                     disabled={!list || list.length == 0}
                     className='btn btn-ok' 
@@ -84,7 +81,7 @@ Dish.propTypes = {
     list: PropTypes.array,
     fadeBlock: PropTypes.bool,
     removeFromDish: PropTypes.func,
-    updateGFromDish: PropTypes.func,
-    clearDish: PropTypes.func.isRequired,
+    updateFromDish: PropTypes.func,
+    clearDish: PropTypes.func,
     pushDishToDiary: PropTypes.func,
 }

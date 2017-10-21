@@ -48,6 +48,14 @@
             border-radius: 0;
             font-weight: bold;
             font-size: 20px;
+            &:hover {
+                background: darken(#56cde8,15);
+                border-color: darken(#56cde8,22);
+            }
+            &:active {
+                background: darken(#56cde8,25);
+                border-color: darken(#56cde8,30);
+            }
         }
     }
 }

@@ -1,0 +1,11 @@
+.total-group {
+    display: flex;
+    align-items: stretch;
+    min-height: 105px;
+    background: #aaa;
+
+    .card-total-kcal {
+        background: none;
+        color: #FFF;
+    }
+}

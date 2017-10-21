@@ -1,7 +1,4 @@
 // Core variables and mixins
-body {
-    margin: 0;
-}
 
 // Core variables and mixins
 @import "../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
@@ -19,4 +16,11 @@ body {
 
 body {
     font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    user-select: none;
+}
+button, input, a {
+    &:focus {
+        outline: 0 none;
+    }
 }

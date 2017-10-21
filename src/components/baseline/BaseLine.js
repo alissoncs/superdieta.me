@@ -9,13 +9,16 @@ export default class BaseLine extends React.Component {
     render() {
         return <div className='baseline'>
             <div className='block-1'>
-                <FoodListContainer />
-            </div>
-            <div className='block-2'>
                 <div className='dish-creation-component'>
                     <DishContainer />
                 </div>
                 <DiaryListContainer />
+            </div>
+            <div className='block-2'>
+                <FoodListContainer />                
+            </div>
+            <div className='block-3'>
+                teste
             </div>
         </div>
     }

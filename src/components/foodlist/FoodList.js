@@ -30,6 +30,12 @@ const dbfood = [
         id: 5,
         kcal: 25,
         g: 100,
+    },
+    {
+        name: 'ovo inteiro cozido',
+        id: 10,
+        kcal: 155,
+        g: 100,
     }
 ]
 

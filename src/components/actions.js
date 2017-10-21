@@ -14,9 +14,9 @@ export const removeFromDish = foodOrId => {
         id,
     }
 }
-export const updateGFromDish = food => {
+export const updateFromDish = food => {
     return {
-        type: 'UPDATE_G_FROM_DISH',
+        type: 'UPDATE_FROM_DISH',
         food,
     }
 }
@@ -28,6 +28,12 @@ export const clearDish = () => {
 export const pushDishToDiary = (dish) => {
     return {
         type: 'PUSH_DISH_TO_DIARY',
+        dish,
+    }
+}
+export const editDishFromDiary = dish => {
+    return {
+        type: 'UPDATE_DISH_FROM_DIARY',
         dish,
     }
 }

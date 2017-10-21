@@ -1,5 +1,6 @@
 import React from 'react'
-import DiaryDishContainer from './DiaryDishContainer';
+import DiaryDishContainer from './DiaryDishContainer'
+import Total from './Total'
 import './diary.scss';
 
 export default class DiaryList extends React.Component {
@@ -36,6 +37,7 @@ export default class DiaryList extends React.Component {
                 return <div key={index} className='diary-item'>{this.card(ref)}</div>;
             })}
             {diary.length == 0 && this.emptyMessage()}
+            <Total diary={diary}/>
         </div>
     }
 
