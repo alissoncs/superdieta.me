@@ -7,23 +7,34 @@ const dbfood = [
         id: 1,
         kcal: 77,
         g: 100,
+        carbs: 18.4
     },
     {
         name: 'frango',
         id: 2,
         kcal: 163,
         g: 100,
+        protein: 21.5,
     },
     {
         name: 'carne vermelha magra',
         id: 4,
         kcal: 137,
+        protein: 35.9
     },
     {
         name: 'arroz',
         id: 3,
         kcal: 130,
         g: 100,
+        carbs: 28.2
+    },
+    {
+        name: 'arroz integral',
+        id: 11,
+        kcal: 111,
+        g: 100,
+        carbs: 25.8
     },
     {
         name: 'brocolis',
@@ -36,13 +47,13 @@ const dbfood = [
         id: 10,
         kcal: 155,
         g: 100,
+        protein: 13.3
     }
 ]
 
 export default class FoodList extends React.Component {
 
-    onAddItem(id) {
-        const food = dbfood.find(item => item.id === id)
+    onAddItem(food) {
         this.props.addToDish(food)
     }
 
@@ -57,7 +68,7 @@ export default class FoodList extends React.Component {
             <div className='flex-2'>
                 {`${kcal}kcal / ${(g || 100)}g`}
             </div>
-            <button className='btn' onClick={this.onAddItem.bind(this, id)}>
+            <button className='btn' onClick={this.onAddItem.bind(this, item)}>
                 +
             </button>
         </div>;

@@ -5,13 +5,10 @@ const dish = (state = [], action) => {
         // verifica se já existe na lista, se existir, somente incrementa
         let existent = state.find(food => food.id === action.food.id)
         if(!existent) {
-            const f = action.food
-            return [...state, {
-                id: f.id,
-                name: f.name,
-                g: f.g || 100,
-                kcal: f.kcal,
-            }]
+            if (!action.food.g) {
+                action.food.g = 100;
+            }
+            return [...state, action.food]
         }
         
     } else if(action.type === 'REMOVE_FROM_DISH') {
