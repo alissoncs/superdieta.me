@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "custom-react-scripts": "0.2.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.19.4",
     "moment": "^2.18.1",
