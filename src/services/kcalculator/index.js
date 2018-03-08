@@ -24,22 +24,26 @@ export const totalCarbs = (dish) => {
         total += (food.g * carbs) / 100;
     });
 
-    console.log('totalcarbs', total);
-
     return total;
 };
 
 export const totalFats = dish => {
-    let total;
-    
+    let total = 0;
+    dish.forEach(food => {
+        let { fats } = food;
+        if(!fats) fats = 0;
+        total += (food.g * fats) / 100;
+    });
     return total
 }
 
 export const totalProtein = (dish) => {
     let total = 0;
-    // dish.forEach(food => {
-    //     total += (food.g * food.protein)// / 100;
-    // });
+    dish.forEach(food => {
+        let { protein } = food;
+        if(!protein) protein = 0;
+        total += (food.g * protein) / 100;
+    });
     return total
 
     // return total.toFixed(0);
