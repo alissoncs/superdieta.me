@@ -4,19 +4,12 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import {
-  HashRouter as Router,
-  Route,
-  Switch,
-  Link
-} from 'react-router-dom'
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import reducers from './components/reducers';
 import BaseLineContainer from './components/baseline/BaseLineContainer';
 
-import './App.scss';
-
-let store = createStore(reducers, applyMiddleware(thunk))
+let store = createStore(reducers, applyMiddleware(thunk));
 
 class App extends Component {
   render() {
@@ -25,13 +18,13 @@ class App extends Component {
         <div className="">
           <Provider store={store}>
             <Switch>
-              <Route path='/' component={BaseLineContainer} />
+              <Route path="/" component={BaseLineContainer} />
             </Switch>
           </Provider>
         </div>
       </Router>
-    )
+    );
   }
 }
 
-export default App
+export default App;

@@ -20,7 +20,8 @@ body {
     user-select: none;
 }
 button, input, a {
-    &:focus {
-        outline: 0 none;
-    }
+  cursor: pointer;
+  &:focus {
+      outline: 0 none;
+  }
 }
