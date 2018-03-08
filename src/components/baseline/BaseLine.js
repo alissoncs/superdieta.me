@@ -2,7 +2,6 @@ import React from 'react'
 import FoodListContainer from '../foodlist/FoodListContainer'
 import DiaryListContainer from '../diary/DiaryListContainer'
 import DishContainer from '../dish/DishContainer'
-import './baseline.scss';
 
 export default class BaseLine extends React.Component {
 
@@ -15,7 +14,7 @@ export default class BaseLine extends React.Component {
                 <DiaryListContainer />
             </div>
             <div className='block-2'>
-                <FoodListContainer />                
+                <FoodListContainer />
             </div>
             <div className='block-3'>
                 teste
