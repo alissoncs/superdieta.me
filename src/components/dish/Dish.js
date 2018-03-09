@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 import isArray from 'lodash/isArray';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -17,7 +17,7 @@ import {
 import { totalDishCalories } from '../../services/kcalculator';
 
 const DishWrapper = styled.div`
-  background: #FFF;
+  background: #fff;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -39,10 +39,12 @@ const CardCustom = styled(Card)`
   height: 80px;
   margin-right: 6px;
   min-width: 120px;
-  ${props => props.yellow && css`
-    background: #ffc463;
-    color: #FFF;
-  `}
+  ${props =>
+    props.yellow &&
+    css`
+      background: #ffc463;
+      color: #fff;
+    `};
 `;
 const RightWrapper = styled.div`
   flex-wrap: nowrap;
@@ -81,15 +83,12 @@ class Dish extends React.Component {
     });
     if (this.props.clearDish) this.props.clearDish();
   }
-  componentDidMount() {
-  }
+  componentDidMount() {}
   render() {
-    let { list, fadeBlock, pushDishToDiary } = this.props;
+    let { list, viewMode } = this.props;
     if (!list) return null;
+
     const totalKcal = totalDishCalories(list);
-    if (fadeBlock) {
-      this.classComponent.push('show');
-    }
 
     return (
       <DishWrapper>
@@ -108,12 +107,19 @@ class Dish extends React.Component {
           })}
         </ItemsWrapper>
         <RightWrapper>
-          <CardCustom yellow title='Total de kcal' text={totalKcal || 0} sub={'kcal'} />
-          {pushDishToDiary && (
+          <CardCustom
+            yellow={!viewMode}
+            title="Total de kcal"
+            text={totalKcal || 0}
+            sub={'kcal'}
+          />
+          {!viewMode && (
             <OKButton
               disabled={!list || list.length == 0}
               className="btn btn-ok"
-              onClick={this.create.bind(this)}>OK</OKButton>
+              onClick={this.create.bind(this)}
+            >OK
+            </OKButton>
           )}
         </RightWrapper>
       </DishWrapper>
@@ -123,28 +129,29 @@ class Dish extends React.Component {
 
 Dish.propTypes = {
   list: PropTypes.array,
-  fadeBlock: PropTypes.bool,
+  viewMode: PropTypes.bool,
+
   removeFromDish: PropTypes.func,
   updateFromDish: PropTypes.func,
   clearDish: PropTypes.func,
   pushDishToDiary: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, own) => {
   return {
-    list: state.dish,
+    list: state.dish || own.list,
+    viewMode: Boolean(own.viewMode),
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return Object.assign({}, ownProps, {
+  return {
+    ...ownProps,
     removeFromDish: item => dispatch(removeFromDish(item)),
     updateFromDish: item => dispatch(updateFromDish(item)),
     pushDishToDiary: dish => dispatch(pushDishToDiary(dish)),
     clearDish: () => dispatch(clearDish()),
-  });
+  };
 };
 
-const container = connect(mapStateToProps, mapDispatchToProps)(Dish);
-
-export default container;
+export default connect(mapStateToProps, mapDispatchToProps)(Dish);

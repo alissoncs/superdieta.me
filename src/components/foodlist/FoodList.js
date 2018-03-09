@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { addToDish } from '../actions';
 
 import FoodItem from './FoodItem';
+import Search from './Search';
 
 const dbfood = [
   {
@@ -64,6 +65,9 @@ const Title = styled.h2`
 `;
 const Wrapper = styled.div`
 `;
+const SearchWrapper = styled.div`
+  padding: 12px;
+`;
 
 class FoodList extends React.Component {
   onAddItem(food) {
@@ -74,6 +78,9 @@ class FoodList extends React.Component {
     return (
       <Wrapper>
         <Title>Lista de alimentos</Title>
+        <SearchWrapper>
+          <Search />
+        </SearchWrapper>
         {dbfood.map((item, index) => {
           return (
             <FoodItem

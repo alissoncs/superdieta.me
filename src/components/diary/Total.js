@@ -1,11 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
 import {
   totalDishCalories,
   totalProtein,
   totalCarbs,
   totalFats,
 } from '../../services/kcalculator';
+import Card from '../common/Card'
+
+const TotalWrapper = styled.div`
+  background: #fff;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 8px;
+`;
+
+const Item = styled(Card)``;
 
 export default class Total extends React.Component {
   mountTotals(diary) {
@@ -26,8 +38,12 @@ export default class Total extends React.Component {
     const { totalKcal, carbs, proteins, fats } = res;
 
     return (
-      <div className="total-group">
-      </div>
+      <TotalWrapper>
+        <Item text={totalKcal} title='Kcal'/>
+        <Item text={carbs} title='carbs'/>
+        <Item text={proteins} title='proteins'/>
+        <Item text={fats} title='fats'/>
+      </TotalWrapper>
     );
   }
 }

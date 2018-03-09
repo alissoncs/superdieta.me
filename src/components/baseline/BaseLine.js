@@ -10,6 +10,7 @@ const Wrapper = styled.div`
 `
 const FoodListWrapper = styled.aside`
   width: 30%;
+  border-right: 1px solid #EEE;
 `;
 const MiddleWrapper = styled.div`
   width: 60%;

@@ -1,26 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import DiaryDishContainer from './DiaryDishContainer';
+import styled, { css } from 'styled-components'
+import Dish from '../dish/Dish';
 import Total from './Total';
+
+const DiaryWrapper = styled.div`
+`;
 
 class DiaryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.classComponent = ['diary-card'];
-  }
-
-  card(ref) {
-    return (
-      <div className={this.classComponent.join(' ')}>
-        <div className="at">
-          <span>{ref.at.format('H:mm')}</span>
-        </div>
-        <div className="diary-dish-block">
-          <DiaryDishContainer list={ref.foods} fadeBlock={true} />
-        </div>
-      </div>
-    );
   }
 
   emptyMessage() {
@@ -36,17 +26,11 @@ class DiaryList extends React.Component {
     if (!diary) diary = [];
 
     return (
-      <div className="diary">
-        {diary.map((ref, index) => {
-          return (
-            <div key={index} className="diary-item">
-              {this.card(ref)}
-            </div>
-          );
-        })}
+      <DiaryWrapper>
+        {diary.map((ref, index) => <Dish viewMode list={ref.foods} key={index} />)}
         {diary.length == 0 && this.emptyMessage()}
         <Total diary={diary} />
-      </div>
+      </DiaryWrapper>
     );
   }
 }
