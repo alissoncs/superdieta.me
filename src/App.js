@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import thunk from 'redux-thunk';
 
-import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import './App.scss';
+
 
 import reducers from './components/reducers';
 import BaseLine from './components/baseline/BaseLine';

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CardTotalKcal from '../dish/CardTotalKcal';
 import {
   totalDishCalories,
   totalProtein,
@@ -24,15 +23,10 @@ export default class Total extends React.Component {
   }
   render() {
     const res = this.mountTotals(this.props.diary);
-    console.log('usadhusadhsa', res);
     const { totalKcal, carbs, proteins, fats } = res;
 
     return (
       <div className="total-group">
-        <CardTotalKcal legend="Proteinas" g={proteins || 0} />
-        <CardTotalKcal legend="Gorduras" g={fats || 0} />
-        <CardTotalKcal legend="Carboidratos" g={carbs || 0} />
-        <CardTotalKcal legend="Calorias" kcal={totalKcal || 0} />
       </div>
     );
   }

@@ -1,24 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import FoodListContainer from '../foodlist/FoodListContainer';
+import styled from 'styled-components';
+import FoodList from '../foodlist/FoodList';
 import DiaryList from '../diary/DiaryList';
-import DishContainer from '../dish/DishContainer';
+import Dish from '../dish/Dish';
+
+const Wrapper = styled.div`
+  display: flex;
+`
+const FoodListWrapper = styled.aside`
+  width: 30%;
+`;
+const MiddleWrapper = styled.div`
+  width: 60%;
+  background: #f1f1f1;
+`
 
 class BaseLine extends React.Component {
   render() {
     return (
-      <div className="baseline">
-        <div className="block-1">
-          <div className="dish-creation-component">
-            <DishContainer />
-          </div>
+      <Wrapper>
+        <FoodListWrapper>
+          <FoodList />
+        </FoodListWrapper>
+        <MiddleWrapper>
+          <Dish />
           <DiaryList />
-        </div>
-        <div className="block-2">
-          <FoodListContainer />
-        </div>
-        <div className="block-3">teste</div>
-      </div>
+        </MiddleWrapper>
+      </Wrapper>
     );
   }
 }

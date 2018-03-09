@@ -1,5 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { addToDish } from '../actions';
+
+import FoodItem from './FoodItem';
+
 const dbfood = [
   {
     name: 'batata doce',
@@ -50,33 +56,34 @@ const dbfood = [
   },
 ];
 
-export default class FoodList extends React.Component {
+const Title = styled.h2`
+  margin: 0 0;
+  font-size: 13px;
+  font-weight: 100;
+  padding: 12px;
+`;
+const Wrapper = styled.div`
+`;
+
+class FoodList extends React.Component {
   onAddItem(food) {
     this.props.addToDish(food);
   }
 
-  renderItem(item) {
-    const { name, id, kcal, g } = item;
-    return (
-      <div className="food-item" key={id}>
-        <div className="flex-1">
-          <strong>{item.name}</strong>
-        </div>
-        <div className="flex-2">{`${kcal}kcal / ${g || 100}g`}</div>
-        <button className="btn" onClick={this.onAddItem.bind(this, item)}>
-          +
-        </button>
-      </div>
-    );
-  }
   render() {
     return (
-      <div className="foodlist">
-        <h2 className="title">Lista de alimentos</h2>
-        {dbfood.map(item => {
-          return this.renderItem(item);
+      <Wrapper>
+        <Title>Lista de alimentos</Title>
+        {dbfood.map((item, index) => {
+          return (
+            <FoodItem
+              item={item}
+              key={index}
+              onAdd={this.onAddItem.bind(this)}
+            />
+          );
         })}
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -84,3 +91,17 @@ export default class FoodList extends React.Component {
 FoodList.propTypes = {
   addToDish: PropTypes.func,
 };
+
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return Object.assign({}, ownProps, {
+    addToDish: data => dispatch(addToDish(data)),
+  });
+};
+
+const container = connect(mapStateToProps, mapDispatchToProps)(FoodList);
+
+export default container;

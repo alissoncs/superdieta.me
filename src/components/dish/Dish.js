@@ -1,13 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isArray } from 'lodash';
+import styled, { css } from 'styled-components'
+import isArray from 'lodash/isArray';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import DishItem from './DishItem';
-import CardTotalKcal from './CardTotalKcal';
+import Button from '../common/Button';
+import Card from '../common/Card';
 
+import {
+  removeFromDish,
+  updateFromDish,
+  clearDish,
+  pushDishToDiary,
+} from '../actions';
 import { totalDishCalories } from '../../services/kcalculator';
 
-export default class Dish extends React.Component {
+const DishWrapper = styled.div`
+  background: #FFF;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 8px;
+`;
+const ItemsWrapper = styled.div`
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const OKButton = styled(Button)`
+  height: 80px;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 20px;
+`;
+const CardCustom = styled(Card)`
+  height: 80px;
+  margin-right: 6px;
+  min-width: 120px;
+  ${props => props.yellow && css`
+    background: #ffc463;
+    color: #FFF;
+  `}
+`;
+const RightWrapper = styled.div`
+  flex-wrap: nowrap;
+`;
+
+const DishItemCustom = styled(DishItem)`
+  height: 80px;
+  margin: 0 4px 4px 0;
+`;
+
+class Dish extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,10 +82,6 @@ export default class Dish extends React.Component {
     if (this.props.clearDish) this.props.clearDish();
   }
   componentDidMount() {
-    setTimeout(() => {
-      this.classComponent.push('show');
-      this.forceUpdate();
-    }, 0);
   }
   render() {
     let { list, fadeBlock, pushDishToDiary } = this.props;
@@ -50,11 +92,11 @@ export default class Dish extends React.Component {
     }
 
     return (
-      <div className={this.classComponent.join(' ')}>
-        <div className="dish-list-items">
+      <DishWrapper>
+        <ItemsWrapper>
           {list.map((food, index) => {
             return (
-              <DishItem
+              <DishItemCustom
                 key={food.id}
                 item={food}
                 onChange={this.props.updateFromDish}
@@ -64,20 +106,17 @@ export default class Dish extends React.Component {
               />
             );
           })}
-        </div>
-        <div className="dish-right-group">
-          <CardTotalKcal kcal={totalKcal} />
+        </ItemsWrapper>
+        <RightWrapper>
+          <CardCustom yellow title='Total de kcal' text={totalKcal || 0} sub={'kcal'} />
           {pushDishToDiary && (
-            <button
+            <OKButton
               disabled={!list || list.length == 0}
               className="btn btn-ok"
-              onClick={this.create.bind(this)}
-            >
-              OK
-            </button>
+              onClick={this.create.bind(this)}>OK</OKButton>
           )}
-        </div>
-      </div>
+        </RightWrapper>
+      </DishWrapper>
     );
   }
 }
@@ -90,3 +129,22 @@ Dish.propTypes = {
   clearDish: PropTypes.func,
   pushDishToDiary: PropTypes.func,
 };
+
+const mapStateToProps = state => {
+  return {
+    list: state.dish,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return Object.assign({}, ownProps, {
+    removeFromDish: item => dispatch(removeFromDish(item)),
+    updateFromDish: item => dispatch(updateFromDish(item)),
+    pushDishToDiary: dish => dispatch(pushDishToDiary(dish)),
+    clearDish: () => dispatch(clearDish()),
+  });
+};
+
+const container = connect(mapStateToProps, mapDispatchToProps)(Dish);
+
+export default container;
