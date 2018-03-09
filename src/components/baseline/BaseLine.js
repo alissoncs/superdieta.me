@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import FoodListContainer from '../foodlist/FoodListContainer';
-import DiaryListContainer from '../diary/DiaryListContainer';
+import DiaryList from '../diary/DiaryList';
 import DishContainer from '../dish/DishContainer';
 
-export default class BaseLine extends React.Component {
+class BaseLine extends React.Component {
   render() {
     return (
       <div className="baseline">
@@ -11,7 +12,7 @@ export default class BaseLine extends React.Component {
           <div className="dish-creation-component">
             <DishContainer />
           </div>
-          <DiaryListContainer />
+          <DiaryList />
         </div>
         <div className="block-2">
           <FoodListContainer />
@@ -21,3 +22,14 @@ export default class BaseLine extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return Object.assign({}, ownProps, {});
+};
+
+const container = connect(mapStateToProps, mapDispatchToProps)(BaseLine);
+
+export default container;

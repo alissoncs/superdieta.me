@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import DiaryDishContainer from './DiaryDishContainer';
 import Total from './Total';
-export default class DiaryList extends React.Component {
+
+class DiaryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -48,3 +50,21 @@ export default class DiaryList extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+    return {
+      diary: state.diary,
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return Object.assign({}, ownProps, {
+    })
+}
+
+  const container = connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(DiaryList)
+
+  export default container

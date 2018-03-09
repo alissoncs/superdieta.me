@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import { HashRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import reducers from './components/reducers';
-import BaseLineContainer from './components/baseline/BaseLineContainer';
+import BaseLine from './components/baseline/BaseLine';
 
 let store = createStore(reducers, applyMiddleware(thunk));
 
@@ -18,7 +18,7 @@ class App extends Component {
         <div className="">
           <Provider store={store}>
             <Switch>
-              <Route path="/" component={BaseLineContainer} />
+              <Route path="/" component={BaseLine} />
             </Switch>
           </Provider>
         </div>
