@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import styled, { css } from 'styled-components'
+import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
 import Dish from '../dish/Dish';
 import Total from './Total';
 
-const DiaryWrapper = styled.div`
-`;
+const DiaryWrapper = styled.div``;
 
 class DiaryList extends React.Component {
   constructor(props) {
@@ -27,7 +26,9 @@ class DiaryList extends React.Component {
 
     return (
       <DiaryWrapper>
-        {diary.map((ref, index) => <Dish viewMode list={ref.foods} key={index} />)}
+        {diary.map((ref, index) => (
+          <Dish viewMode list={ref.foods} key={index} />
+        ))}
         {diary.length == 0 && this.emptyMessage()}
         <Total diary={diary} />
       </DiaryWrapper>
@@ -36,19 +37,13 @@ class DiaryList extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return {
-      diary: state.diary,
-    }
-}
+  return {
+    diary: state.diary,
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return Object.assign({}, ownProps, {
-    })
-}
+  return Object.assign({}, ownProps, {});
+};
 
-  const container = connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(DiaryList)
-
-  export default container
+export default connect(mapStateToProps, mapDispatchToProps)(DiaryList);
